@@ -1,2 +1,2 @@
-# WeeklyPlanner
-Add your Important Tasks
+# Myweeklyplanner
+Plan your events here

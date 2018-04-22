@@ -1,0 +1,37 @@
+.cardprogress
+{
+  border-style:dotted;
+  background-color:#33d6ff;
+margin-bottom:80px;
+margin-left:30px;
+}
+
+.cardcompleted
+{ 
+  border-style:dotted;
+  background-color:#ff6666;
+margin-bottom:80px;
+margin-left:30px;
+}
+.cardall
+{ 
+  border-style:dotted;
+  background-color:#8585ad;
+margin-bottom:80px;
+margin-left:30px
+}
+.cardtodo
+{ 
+  border-style:dotted;
+  background-color:#00cc99;
+margin-bottom:80px;
+margin-left:30px;
+}
+.hyperlink
+{color:black;
+font-weight:bold;
+text-decoration:underline}
+.cardtitle
+{font-family:Comic Sans MS;
+color:black;
+font-weight:bold;}

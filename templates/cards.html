@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Cards</title>
+   {% load static %}
+         {% load staticfiles %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/css/style1.css' %}">
+    <link rel="shortcut icon" href="{% static 'assets/ico/favicon.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'assets/ico/apple-touch-icon-144-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'assets/ico/apple-touch-icon-72-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'assets/ico/apple-touch-icon-57-precomposed.png' %}">
+
+  
+</head>
+<body>
+  <div class="jumbotron jumbotron-fluid jbcolor" style="background-color:#80dfff">
+     <button type="button" class="btn btn-primary" style="position:relative;left:60px;top:50px" data-toggle="modal" data-target="#myModal">Add a Task</button>
+
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+  
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Add a New Task</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+         
+        </div>
+        <div class="modal-body">
+          <form method="post" action="/home/">
+              {% csrf_token %}
+              Task Name: 
+              <input type="text" class="form-control" name="taskName">
+              Description:
+              <input type="text" class="form-control" name="description">
+
+              <button type="submit" class="btn btn-success">Add</button>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+  
+    </div>
+</div>
+  <div class="container">
+    <h1 style="text-align:center;color:black">Plan Your Events Here!</h1>
+
+  </div>
+    <a href="/logout/" class="btn btn-primary" style="float:right;position:relative;right:60px;bottom:50px">Logout</a>
+</div>
+    <div class="container"  style="background-color:#ccccb3;margin-bottom:30px">
+    <div class="row">
+     <div class="col-xl-2"><h1 style="color:black;">All Tasks</h1></div>
+     <div class="col-xl-1"></div>
+     <div class="col-xl-2"><h1 style="color:black;position:relative;left:55px;">Do it!</h1></div>
+     <div class="col-xl-1"></div>
+     <div class="col-xl-2"><h1 style="color:black;position:relative;left:60px;">Ongoing!</h1></div>
+     <div class="col-xl-1"></div>
+     <div class="col-xl-2"><h1 style="color:black;position:relative;left:120px">Done!</h1></div>
+     <div class="col-xl-1"></div>
+    </div>
+  </div>
+
+  
+ 
+  
+  <div class="card cardall" style="width:300px;float:left;">
+    {% for task in tasks %}
+      <div class="card-body ">
+        <h4 class="card-title cardtitle">{{task.taskName}}</h4>
+        <p>Created on:{{task.ts}}</p>
+        <p class="card-text" style="color:black;font-family:Helvetica;font-weight: bold;"">{{task.description}}</p>
+        <a href="/home/statuschanger/INPROGRESS-{{task.id}}" class="card-link hyperlink">Progress</a>
+      <a href="/home/statuschanger/COMPLETED-{{task.id}}" class="card-link hyperlink">Completed</a>
+      <a href="/home/statuschanger/REMOVE-{{task.id}}" class="card-link hyperlink">Remove</a>
+       </div>
+       <div class="card-footer" style="background-color:#33334d;"></div>
+        {% endfor %}
+    </div>
+
+    <div class="card cardtodo" style="width:300px;float:left;">
+                    {% for task in todo %}
+    <div class="card-body">
+      <h4 class="card-title cardtitle">{{task.taskName}}</h4>
+      <p>Created on:{{task.ts}}</p>
+      <p class="card-text" style="color:black;font-family:Helvetica;font-weight: bold;">{{task.description}}</p>
+      <a href="/home/statuschanger/INPROGRESS-{{task.id}}" class="card-link hyperlink">Progress</a>
+      <a href="/home/statuschanger/COMPLETED-{{task.id}}" class="card-link hyperlink">Completed</a>
+      <a href="/home/statuschanger/REMOVE-{{task.id}}" class="card-link hyperlink">Remove</a>
+    </div>
+    <div class="card-footer" style="background-color:#00664d;"></div>
+                   {% endfor %}
+  </div>
+  
+   
+  <div class="card cardprogress" style="width:300px;float:left;">
+      {% for task in inprogress %}
+    <div class="card-body">
+      <h4 class="card-title cardtitle">{{task.taskName}}</h4>
+      <p>Created on:{{task.ts}}</p>
+      <p class="card-text" style="color:black;font-family:Helvetica;font-weight: bold;"">{{task.description}}</p>
+      <a href="/home/statuschanger/TODO-{{task.id}}" class="card-link hyperlink">Todo</a>
+      <a href="/home/statuschanger/COMPLETED-{{task.id}}" class="card-link hyperlink">Completed</a>
+      <a href="/home/statuschanger/REMOVE-{{task.id}}" class="card-link hyperlink">Remove</a>
+    </div>
+    <div class="card-footer" style="background-color:#006680;"></div>
+    
+    
+    {% endfor %}
+  </div>
+      
+  <div class="card cardcompleted" style="width:300px;float:left;">
+      {% for task in completed %}
+   <div class="card-body">
+      <h4 class="card-title cardtitle">{{task.taskName}}</h4>
+      <p>Created on:{{task.ts}}</p>
+      <p class="card-text" style="color:black;font-family:Helvetica;font-weight: bold;">{{task.description}}</p>
+      
+      <a href="/home/statuschanger/TODO-{{task.id}}" class="card-link hyperlink">Todo</a>
+      <a href="/home/statuschanger/INPROGRESS-{{task.id}}" class="card-link hyperlink">Progress</a>
+      <a href="/home/statuschanger/REMOVE-{{task.id}}" class="card-link hyperlink">Remove</a>
+    </div>
+      <div class="card-footer" style="background-color: #660000;"></div>
+    {% endfor %}
+    
+  </div>
+  
+  
+  </div>
+
+ 
+</body>
+</html>
